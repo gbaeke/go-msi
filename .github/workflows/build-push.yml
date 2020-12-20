@@ -47,11 +47,12 @@ jobs:
           
       - name: Monitor image for vulnerabilities with Snyk
         uses: snyk/actions/docker@master
+        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK }}
         with:
           command: monitor
-          image: "go-msi:main"
+          image: "gbaeke/go-msi:main"
           args: --file=Dockerfile --project-name=go-msi 
           
       - name: Push image
