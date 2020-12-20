@@ -19,13 +19,11 @@ func healthz(w http.ResponseWriter, req *http.Request) {
 }
 
 func groupz(w http.ResponseWriter, req *http.Request) {
-	groupJson, _ := json.Marshal(groupList)
-	fmt.Fprintf(w, string(groupJson))
+	groupJSON, _ := json.Marshal(groupList)
+	fmt.Fprintf(w, string(groupJSON))
 }
 
 func main() {
-	log.Println("Azure SDK for Go Sample")
-
 	subID := os.Getenv("SUBSCRIPTION_ID")
 	if subID == "" {
 		log.Fatalln("Subscription ID empty")
@@ -37,12 +35,10 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	log.Println("Auth successful")
+	log.Println("Auth successful...")
 	groupsClient.Authorizer = authorizer
 
-	log.Println("Getting context...")
 	ctx := context.Background()
-
 	log.Println("Getting groups client...")
 	groups, err := groupsClient.ListComplete(ctx, "", nil)
 	if err != nil {
@@ -59,9 +55,9 @@ func main() {
 		}
 	}
 
-	log.Println("Serving on 8080")
+	log.Println("Serving on 8080...")
 	http.HandleFunc("/healthz", healthz)
-	http.HandleFunc("/groups", groupz)
+	http.HandleFunc("/groupz", groupz)
 	http.ListenAndServe(":8080", nil)
 
 }
