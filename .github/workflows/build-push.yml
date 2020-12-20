@@ -51,7 +51,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK }}
         with:
           command: monitor
-          image: "ghcr.io/gbaeke/go-msi:main"
+          image: "go-msi:main"
           args: --file=Dockerfile --project-name=go-msi 
           
       - name: Push image
