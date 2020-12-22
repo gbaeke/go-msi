@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mymsi-deployment
+  namespace: mymsi
+  labels:
+    app: mymsi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mymsi
+  template:
+    metadata:
+      labels:
+        app: mymsi
+        aadpodidbinding: mymsi
+    spec:
+      containers:
+        - name: mymsi
+          image: ghcr.io/gbaeke/go-msi:0.1.1
+          env:
+            - name: SUBSCRIPTION_ID
+              value: SUBID
+            - name: AZURE_CLIENT_ID
+              value: CLIENTID
+            - name: AZURE_AD_RESOURCE
+              value: "https://management.azure.com"
+          ports:
+            - containerPort: 8080
