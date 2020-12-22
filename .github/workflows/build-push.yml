@@ -21,7 +21,7 @@ jobs:
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: ghcr.io/gbaeke/go-msi:0.1.1
+          images: ghcr.io/gbaeke/go-msi
           tag-sha: true
           tag-edge: false
           tag-latest: true
