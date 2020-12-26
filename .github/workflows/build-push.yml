@@ -76,6 +76,4 @@ jobs:
         run: sed -i 's/SUBID/${{ secrets.SUBSCRIPTION_ID }}/g' kind-deployment.yaml
       - name: Deploy go-msi
         run: kubectl apply -f kind-deployment.yaml
-      - name: Expose deployment
-        run: kubectl expose deploy/mymsi-deployment --type LoadBalancer -n mymsi
 
