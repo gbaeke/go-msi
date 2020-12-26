@@ -6,7 +6,7 @@ on:
   release:
     types:
       - published
-        
+
 jobs:
 
   build:
@@ -70,8 +70,12 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v2
+      - name: Get shortsha
+        id: vars
+        run: |
+         echo ::set-output name=sha_short::$(git rev-parse --short=7 ${{ github.sha }})
       - name: Update deployment manifest image
-        run: sed -i 's/IMAGE/ghcr.io\/gbaeke\/go-msi:main/g' kind-deployment.yaml
+        run: sed -i 's/IMAGE/ghcr.io\/gbaeke\/go-msi:sha-${{ steps.vars.outputs.sha_short }}/g' kind-deployment.yaml
       - name: Set subscription id
         run: sed -i 's/SUBID/${{ secrets.SUBSCRIPTION_ID }}/g' kind-deployment.yaml
       - name: Deploy go-msi
