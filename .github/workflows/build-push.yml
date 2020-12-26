@@ -62,4 +62,11 @@ jobs:
           tags: ${{ steps.docker_meta.outputs.tags }}
           file: ./Dockerfile  
 
-        
+  deploy:
+    runs-on: wsl
+    environment: myenv
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+
