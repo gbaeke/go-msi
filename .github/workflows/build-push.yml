@@ -70,4 +70,8 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v2
+      - name: Deploy go-msi
+        run: kubectl apply -f deployment.yaml
+      - name: Expose deployment
+        run: kubectl expose deploy/mymsi-deployment --type LoadBalancer
 
