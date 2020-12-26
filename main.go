@@ -14,6 +14,9 @@ import (
 
 var groupList []string
 
+func healthz(w http.ResponseWriter, req *http.Request) {
+	fmt.Fprintf(w, "ok")
+
 func groupz(w http.ResponseWriter, req *http.Request) {
 	groupJSON, _ := json.Marshal(groupList)
 	fmt.Fprintf(w, string(groupJSON))
@@ -52,6 +55,7 @@ func main() {
 	}
 
 	log.Println("Serving on 8080...")
+	http.HandleFunc("/healthz", healtz)
 	http.HandleFunc("/groupz", groupz)
 	http.ListenAndServe(":8080", nil)
 
