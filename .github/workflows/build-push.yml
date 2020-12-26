@@ -65,6 +65,7 @@ jobs:
   deploy:
     runs-on: wsl
     environment: myenv
+    needs: build
 
     steps:
       - name: Check out
