@@ -1,0 +1,43 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mymsi
+--
+apiVersion: v1
+kind: Service
+metadata:
+  name: mymsi
+spec:
+  selector:
+    app: mymsi
+  ports:
+  - port: 80
+    targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mymsi-deployment
+  namespace: mymsi
+  labels:
+    app: mymsi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mymsi
+  template:
+    metadata:
+      labels:
+        app: mymsi
+        aadpodidbinding: mymsi
+    spec:
+      containers:
+        - name: mymsi
+          image: ghcr.io/gbaeke/go-msi:main
+          env:
+            - name: SUBSCRIPTION_ID
+              value: SUBID
+          ports:
+            - containerPort: 8080

@@ -70,8 +70,12 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v2
+      - name: Update deployment manifest image
+        run: sed -i 's/IMAGE/ghcr.io\/gbaeke\/go-msi:main/g' kind-deployment.yaml
+      - name: Set subscription id
+        run: sed -i 's/SUBID/${{ secrets.SUBSCRIPTION_ID }}/g' kind-deployment.yaml
       - name: Deploy go-msi
-        run: kubectl apply -f deployment.yaml
+        run: kubectl apply -f kind-deployment.yaml
       - name: Expose deployment
         run: kubectl expose deploy/mymsi-deployment --type LoadBalancer -n mymsi
 
