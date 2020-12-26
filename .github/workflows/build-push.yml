@@ -73,5 +73,5 @@ jobs:
       - name: Deploy go-msi
         run: kubectl apply -f deployment.yaml
       - name: Expose deployment
-        run: kubectl expose deploy/mymsi-deployment --type LoadBalancer
+        run: kubectl expose deploy/mymsi-deployment --type LoadBalancer -n mymsi
 
