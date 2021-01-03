@@ -75,7 +75,7 @@ jobs:
         run: |
          echo ::set-output name=sha_short::$(git rev-parse --short=7 ${{ github.sha }})
       - name: Echo shortsha
-        run: echo short sha is ${{ steps.vars.outputs.sha_short }}
+        run: echo the short sha is ${{ steps.vars.outputs.sha_short }}
       - name: Update deployment manifest image
         run: sed -i 's/IMAGE/ghcr.io\/gbaeke\/go-msi:sha-${{ steps.vars.outputs.sha_short }}/g' kind-deployment.yaml
       - name: Set subscription id
